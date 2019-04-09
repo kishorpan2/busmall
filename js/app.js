@@ -1,4 +1,3 @@
-
 'use strict';
 // Pull images from the html
 var allImages = [];
@@ -84,6 +83,4 @@ function renderImage(){
     fromHtml.appendChild(img);
   }
 }
-
 renderImage();
-
