@@ -1,7 +1,6 @@
 'use strict';
 // Pull images from the html
 var allImages = [];
-var votes =[];
 var names =['bag','banana','bathroom','boots','breakfast','bubblegum','chair','cthulhu','dog-duck','dragon','pen','petsweep','scissors','shark','sweep','tauntaun','unicorn','usb','water-can','wine-can'];
 var data = [];
 function updateChartArrays() {
@@ -32,26 +31,39 @@ function imageGenerator(name,path){
   this.numberOfTimesClicked =0;
   allImages.push(this);
 }
-new imageGenerator('bag', './img/bag.jpg');
-new imageGenerator('banana', './img/banana.jpg');
-new imageGenerator('bathroom', './img/bathroom.jpg');
-new imageGenerator('boots', './img/boots.jpg');
-new imageGenerator('breakfast', './img/breakfast.jpg');
-new imageGenerator('bubblegum', './img/bubblegum.jpg');
-new imageGenerator('chair', './img/chair.jpg');
-new imageGenerator('cthulhu', './img/cthulhu.jpg');
-new imageGenerator('dog-duck', './img/dog-duck.jpg');
-new imageGenerator('dragon', './img/dragon.jpg');
-new imageGenerator('pen', './img/pen.jpg');
-new imageGenerator('pet-sweep', './img/pet-sweep.jpg');
-new imageGenerator('scissors', './img/scissors.jpg');
-new imageGenerator('shark', './img/shark.jpg');
-new imageGenerator('sweep', './img/sweep.jpg');
-new imageGenerator('tauntaun', './img/tauntaun.jpg');
-new imageGenerator('unicorn', './img/unicorn.jpg');
-new imageGenerator('usb', './img/usb.jpg');
-new imageGenerator('water-can', './img/water-can.jpg');
-new imageGenerator('wine-glass', './img/wine-glass.jpg');
+
+
+function generateInstancesOfImageObjects(){
+  new imageGenerator('bag', './img/bag.jpg');
+  new imageGenerator('banana', './img/banana.jpg');
+  new imageGenerator('bathroom', './img/bathroom.jpg');
+  new imageGenerator('boots', './img/boots.jpg');
+  new imageGenerator('breakfast', './img/breakfast.jpg');
+  new imageGenerator('bubblegum', './img/bubblegum.jpg');
+  new imageGenerator('chair', './img/chair.jpg');
+  new imageGenerator('cthulhu', './img/cthulhu.jpg');
+  new imageGenerator('dog-duck', './img/dog-duck.jpg');
+  new imageGenerator('dragon', './img/dragon.jpg');
+  new imageGenerator('pen', './img/pen.jpg');
+  new imageGenerator('pet-sweep', './img/pet-sweep.jpg');
+  new imageGenerator('scissors', './img/scissors.jpg');
+  new imageGenerator('shark', './img/shark.jpg');
+  new imageGenerator('sweep', './img/sweep.jpg');
+  new imageGenerator('tauntaun', './img/tauntaun.jpg');
+  new imageGenerator('unicorn', './img/unicorn.jpg');
+  new imageGenerator('usb', './img/usb.jpg');
+  new imageGenerator('water-can', './img/water-can.jpg');
+  new imageGenerator('wine-glass', './img/wine-glass.jpg');
+}
+
+if (localStorage.getItem('storedImages') !== null) {
+  console.log('Data found');
+  allImages = JSON.parse(localStorage.getItem('storedImages'));
+} else {
+  generateInstancesOfImageObjects();
+  console.log('Not found');
+  localStorage.setItem('storedImages', JSON.stringify(allImages));
+}
 
 
 // pick a random number from 0 to 19
@@ -197,85 +209,6 @@ function resultsOfPoll(){
 
 
 //Chart Stuff
-// var data = {
-//   labels: names,
-//   datasets: [
-
-//     {
-//       label: 'Votes per Product',
-//       data: votes,
-//       backgroundColor: [
-//         'rgb(251,18,0)',
-//         'rgb(232,162,90)',
-//         'rgb(255,117,0)',
-//         'rgb(202,116,110)',
-//         'rgb(205,195,0)',
-//         'rgb(259,205,200)',
-//         'rgb(232,218,0)',
-//         'rgb(192,255,0)',
-//         'rgb(68,232,100)',
-//         'rgb(0,255,35)',
-//         'rgb(0,255,152)',
-//         'rgb(210,232,189)',
-//         'rgb(0,210,255)',
-//         'rgb(100,110,232)',
-//         'rgb(0,33,255)',
-//         'rgb(0,80,255)',
-//         'rgb(131,0,232)',
-//         'rgb(216,0,255)',
-//         'rgb(232,0,195)',
-//         'rgb(245,0,183)'
-//       ],
-
-//       hoverBackgroundColor: [
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple',
-//         'purple'
-//       ]
-//     }]
-// };
-
-// function drawChart(){
-//   var ctx = document.getElementById('votesChart').getContext('2d');
-//   imageChart = new Chart(ctx, {
-//     type: 'doughnut',
-//     data: data,
-//     options: {
-//       responsive: false,
-//       animation: {
-//         duration: 1000,
-//         easing: 'easeOutBounce'
-//       }
-//     },
-//     scales: {
-//       yAxes: [{
-//         ticks: {
-//           max: 20,
-//           min: 0,
-//           stepSize: 1.0
-//         }
-//       }]
-//     }
-//   });
-// }
-
 function drawChart() {
   var ctx = document.getElementById('votesChart').getContext('2d');
   var myChart = new Chart(ctx, {
