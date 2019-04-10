@@ -2,8 +2,13 @@
 // Pull images from the html
 var allImages = [];
 var votes =[];
-var names =[];
-var imageChart =[];
+var names =['bag','banana','bathroom','boots','breakfast','bubblegum','chair','cthulhu','dog-duck','dragon','pen','petsweep','scissors','shark','sweep','tauntaun','unicorn','usb','water-can','wine-can'];
+var data = [];
+function updateChartArrays() {
+  for (var i = 0; i < allImages.length; i++) {
+    data[i] = allImages[i].numberOfTimesClicked;
+  }
+}
 
 var img1 = document.getElementById('img1');
 var img2 = document.getElementById('img2');
@@ -111,12 +116,15 @@ function choosenImage(){
   if (totalNumberClicks===25){
     tallyVote(selectedImg);
     resultsOfPoll();
+    updateChartArrays();
     fromHtml.removeEventListener('click', choosenImage);
   }
   renderImage(img1);
   renderImage(img2);
   renderImage(img3);
   tallyVote(selectedImg);
+  drawChart();
+  
 }
 // we want to add a vote to the image that was clicked
 
@@ -146,12 +154,11 @@ function tallyVote(thisImage) {
       if (totalNumberClicks===25){
         //
       }
-      else{
-        imageGenerator();
-      }
+    
     }
   }
 }
+
 console.log('this is the votes', tallyVote);
 document.getElementById('vote').addEventListener('click', function(event) {
   if (event.target.id !== 'vote') {
@@ -190,81 +197,149 @@ function resultsOfPoll(){
 
 
 //Chart Stuff
-var data = {
-  labels: names,
-  datasets: [
-    {
-      label: 'Votes per Product',
-      data: votes,
-      backgroundColor: [
-        'rgb(251,18,0)',
-        'rgb(232,162,90)',
-        'rgb(255,117,0)',
-        'rgb(202,116,110)',
-        'rgb(205,195,0)',
-        'rgb(259,205,200)',
-        'rgb(232,218,0)',
-        'rgb(192,255,0)',
-        'rgb(68,232,100)',
-        'rgb(0,255,35)',
-        'rgb(0,255,152)',
-        'rgb(210,232,189)',
-        'rgb(0,210,255)',
-        'rgb(100,110,232)',
-        'rgb(0,33,255)',
-        'rgb(0,80,255)',
-        'rgb(131,0,232)',
-        'rgb(216,0,255)',
-        'rgb(232,0,195)',
-        'rgb(245,0,183)'
-      ],
+// var data = {
+//   labels: names,
+//   datasets: [
 
-      hoverBackgroundColor: [
-        'purple',
-        'purple',
-        'purple',
-        'purple',
-        'purple',
-        'purple',
-        'purple',
-        'purple',
-        'purple',
-        'purple',
-        'purple',
-        'purple',
-        'purple',
-        'purple',
-        'purple',
-        'purple',
-        'purple',
-        'purple',
-        'purple',
-        'purple'
-      ]
-    }]
-};
+//     {
+//       label: 'Votes per Product',
+//       data: votes,
+//       backgroundColor: [
+//         'rgb(251,18,0)',
+//         'rgb(232,162,90)',
+//         'rgb(255,117,0)',
+//         'rgb(202,116,110)',
+//         'rgb(205,195,0)',
+//         'rgb(259,205,200)',
+//         'rgb(232,218,0)',
+//         'rgb(192,255,0)',
+//         'rgb(68,232,100)',
+//         'rgb(0,255,35)',
+//         'rgb(0,255,152)',
+//         'rgb(210,232,189)',
+//         'rgb(0,210,255)',
+//         'rgb(100,110,232)',
+//         'rgb(0,33,255)',
+//         'rgb(0,80,255)',
+//         'rgb(131,0,232)',
+//         'rgb(216,0,255)',
+//         'rgb(232,0,195)',
+//         'rgb(245,0,183)'
+//       ],
 
-function drawChart(){
-  var ctx = document.getElementById('vote').getContext('2d');
-  imageChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: data,
-    options: {
-      responsive: false,
-      animation: {
-        duration: 1000,
-        easing: 'easeOutBounce'
-      }
-    },
-    scales: {
-      yAxes: [{
-        ticks: {
-          max: 20,
-          min: 0,
-          stepSize: 1.0
-        }
+//       hoverBackgroundColor: [
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple',
+//         'purple'
+//       ]
+//     }]
+// };
+
+// function drawChart(){
+//   var ctx = document.getElementById('votesChart').getContext('2d');
+//   imageChart = new Chart(ctx, {
+//     type: 'doughnut',
+//     data: data,
+//     options: {
+//       responsive: false,
+//       animation: {
+//         duration: 1000,
+//         easing: 'easeOutBounce'
+//       }
+//     },
+//     scales: {
+//       yAxes: [{
+//         ticks: {
+//           max: 20,
+//           min: 0,
+//           stepSize: 1.0
+//         }
+//       }]
+//     }
+//   });
+// }
+
+function drawChart() {
+  var ctx = document.getElementById('votesChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: names,
+      datasets: [{
+        label: '# of Votes',
+        data: data,
+        backgroundColor: [
+          'rgb(251,18,0)',
+          'rgb(232,162,90)',
+          'rgb(255,117,0)',
+          'rgb(202,116,110)',
+          'rgb(205,195,0)',
+          'rgb(259,205,200)',
+          'rgb(232,218,0)',
+          'rgb(192,255,0)',
+          'rgb(68,232,100)',
+          'rgb(0,255,35)',
+          'rgb(0,255,152)',
+          'rgb(210,232,189)',
+          'rgb(0,210,255)',
+          'rgb(100,110,232)',
+          'rgb(0,33,255)',
+          'rgb(0,80,255)',
+          'rgb(131,0,232)',
+          'rgb(216,0,255)',
+          'rgb(232,0,195)',
+          'rgb(245,0,183)'
+        ],
+        borderColor: [
+          'purple',
+          'purple',
+          'purple',
+          'purple',
+          'purple',
+          'purple',
+          'purple',
+          'purple',
+          'purple',
+          'purple',
+          'purple',
+          'purple',
+          'purple',
+          'purple',
+          'purple',
+          'purple',
+          'purple',
+          'purple',
+          'purple',
+          'purple'
+        ],
+        borderWidth: 1
       }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
     }
   });
 }
-
