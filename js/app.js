@@ -129,14 +129,13 @@ function choosenImage(){
     tallyVote(selectedImg);
     resultsOfPoll();
     updateChartArrays();
+    drawChart();
     fromHtml.removeEventListener('click', choosenImage);
   }
   renderImage(img1);
   renderImage(img2);
   renderImage(img3);
   tallyVote(selectedImg);
-  drawChart();
-  
 }
 // we want to add a vote to the image that was clicked
 
