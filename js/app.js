@@ -3,6 +3,8 @@
 var allImages = [];
 var names =['bag','banana','bathroom','boots','breakfast','bubblegum','chair','cthulhu','dog-duck','dragon','pen','petsweep','scissors','shark','sweep','tauntaun','unicorn','usb','water-can','wine-can'];
 var data = [];
+//previous data in local storage
+var currentData = [];
 function updateChartArrays() {
   for (var i = 0; i < allImages.length; i++) {
     data[i] = allImages[i].numberOfTimesClicked;
@@ -17,6 +19,25 @@ var randomArray = [];
 
 //from HTML
 var fromHtml = document.getElementById('pic');
+
+function totalVotes(currenData,currentVotes){
+  for(var i =0 ; i <currenData.length;i++){
+    currenData[i] += currentVotes[i];
+  }
+}
+
+function loadSavedData(){
+  if(localStorage.length===1){
+    localStorage.setItem('currentData',
+      JSON.stringify(data));
+  }
+  else{
+    currentData = JSON.parse(localStorage.currentData);
+    totalVotes(data,currentData);
+    localStorage.clear();
+    localStorage.setItem('currentData',JSON.stringify(data));
+  }
+}
 
 // function generateArandomNumber(){
 //   var randomOne = Math.floor(Math.random() * allImages.length);
@@ -129,6 +150,7 @@ function choosenImage(){
     tallyVote(selectedImg);
     resultsOfPoll();
     updateChartArrays();
+    loadSavedData();
     drawChart();
     fromHtml.removeEventListener('click', choosenImage);
   }
@@ -165,17 +187,16 @@ function tallyVote(thisImage) {
       if (totalNumberClicks===25){
         //
       }
-    
     }
   }
 }
 
-console.log('this is the votes', tallyVote);
-document.getElementById('vote').addEventListener('click', function(event) {
-  if (event.target.id !== 'vote') {
-    tallyVote(event.target.id);
-  }
-});
+// console.log('this is the votes', tallyVote);
+// document.getElementById('vote').addEventListener('click', function(event) {
+//   if (event.target.id !== 'vote') {
+//     tallyVote(event.target.id);
+//   }
+// });
 
 //to display results
 function resultsOfPoll(){
@@ -268,7 +289,10 @@ function drawChart() {
       scales: {
         yAxes: [{
           ticks: {
-            beginAtZero: true
+            beginAtZero: true,
+            max: 20,
+            min: 0,
+            stepSize: 1.0,
           }
         }]
       }
