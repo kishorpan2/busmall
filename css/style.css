@@ -1,3 +1,21 @@
 img{
-  width: 200px;
+  width: 300px;
 }
+body{background-color:black;
+  font-size:25px; 
+  font-style:italic;
+  color:rgb(247, 7, 195);
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/POKHARA_BOUND_TOURIST_BUSSES_AT_A_REST_STOP_IN_NEPAL_FEB_2013_%288571653516%29.jpg/1600px-POKHARA_BOUND_TOURIST_BUSSES_AT_A_REST_STOP_IN_NEPAL_FEB_2013_%288571653516%29.jpg");
+  background-repeat: no-repeat;
+}
+  .one{
+    display: block;
+    margin-left: auto;
+    margin-right:auto;
+    width:90%;
+  };
+  nav ul li {
+    display: inline;
+    display: block;
+    margin: 20 px;
+  }
